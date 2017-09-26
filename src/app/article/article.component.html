@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="col-lg-9 col-lg-offset-1">
+  <h3>{{title}}</h3>
+  <br/>
+  <table class="table table-hover table-stripped">
+    <thead>
+      <tr>
+        <th>idarticle</th>
+        <th>title</th>
+        <th>category</th>
+        <th>options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let artic of articles">
+        <td>{{artic.idarticle}}</td>
+        <td>{{artic.title}}</td>
+        <td>{{artic.category}}</td>
+        <td>
+          <button type="button" class="btn btn-default"
+          (click)="getDataArticleById(artic.idarticle)">
+            <span class="glyphicon glyphicon-pencil">
+            </span>
+            <b>Update</b>
+          </button>
+          <button type="button" class="btn btn-success" 
+          (click)="getDeleteArticles(artic.idarticle)" >
+            <span class="glyphicon glyphicon-trash">
+            </span>
+            <b>Hapus</b>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>idarticle</th>
+        <th>title</th>
+        <th>category</th>
+        <th>options</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+  <div class="col-lg-8 col-lg-offset-2">
+    <hr/>
+    <h3>Form Angular 2</h3>
+    <hr/>
+    <!--FORM ANGULAR-->
+
+    <form [formGroup]="articleForm" (ngSubmit)="getFormOnSubmit()" class="form-horizontal">
+      <div class="form-group">
+        <label class="col-lg-3 control-label">Title :</label>
+        <div class="col-lg-5">
+          <input class="form-control" formControlName="title" placeholder="Title">
+          <!--validasi title-->
+          <label *ngIf="articleForm.get('title').invalid && processValidation" [ngClass]="'error'" style="color: crimson" >Title Is Required !</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">Category :</label>
+        <div class="col-lg-5">
+          <input class="form-control" formControlName="category" placeholder="Category"/>
+          <!--validasi category-->
+          <label *ngIf="articleForm.get('category').invalid && processValidation"  [ngClass]="'error'" style="color: crimson">Category Is Required !</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-6 col-lg-offset-3">
+          <!--button simpan-->
+          <button *ngIf="!articleIdToUpdate" class="btn btn-success">
+            <span class="glyphicon glyphicon-saved"></span>
+            OK
+          </button>
+          <!--button Edit-->
+          <button *ngIf="articleIdToUpdate" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>
+            Edit
+          </button>
+          <!--button reset-->
+          <button (click)="backToCreateArticles()" class="btn btn-danger">
+            <span class="glyphicon glyphicon-refresh"></span>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
